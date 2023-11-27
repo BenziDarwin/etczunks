@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React,{FC} from 'react';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes
+} from "react-router-dom";
+import './App.less';
+import {WalletContextProvider} from './context/WalletContext';
+import {CollectionContextProvider} from './context/CollectionContext';
+import Footer from './component/Footer';
+import Home from './page/Home';
+import MarketPlace from './page/MarketPlace';
+import LastSales from './page/LastSales';
+import MyETCZUNKS from './page/MyETCZUNKS';
+const App:FC = () =>{
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <WalletContextProvider>
+      <CollectionContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/explore" element={<MarketPlace/>}/>
+            <Route path="/marketplace" element={<LastSales/>}/>
+            <Route path="/myetczunks" element={<MyETCZUNKS/>}/>
+          </Routes>
+      
+        </BrowserRouter>
+        
+        <Footer/>
+      </CollectionContextProvider>
+    </WalletContextProvider>
   );
 }
 
